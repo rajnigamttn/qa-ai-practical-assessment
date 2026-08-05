@@ -78,3 +78,41 @@ The following improvements were accepted after review:
 ### Outcome
 The Requirement Analysis document was finalized after iterative refinement and human validation. The approved version serves as the baseline reference for test strategy, manual testing, API testing, automation, and subsequent assessment artifacts.
 -------------------------------------------------
+
+## Task 4 – Application Exploration
+
+### Objective
+Understand the application and identify the business flow before designing the test strategy.
+
+### Context Provided to AI
+The finalized Requirement Analysis and the selected Checkout & Application Flow.
+
+### Human Activities
+- Explored the Toolshop application manually.
+- Identified the primary user journey.
+- Reviewed API documentation relevant to the selected scope.
+- Captured observations and screenshots.
+
+### AI Usage
+AI was used only to guide the exploration process. The observations were validated manually.
+
+### Outcome
+The application understanding was documented and used as the basis for the Test Strategy.
+-------------------------------------------------
+## Task 5 – Refinement of Application Exploration
+
+### Why refinement was needed
+The initial AI-generated document contained a few assumptions (such as implying API execution) and lacked explicit business flow, risk observations, and automation considerations.
+
+### Refinement prompt
+Documented review comments were provided to the AI to improve accuracy, traceability, and alignment with the assessment scope while avoiding unsupported claims.
+
+### Validation performed
+- Verified that unsupported execution claims were removed.
+- Confirmed references only included sources actually used.
+- Checked that new sections improved traceability from exploration to testing and automation.
+- Reviewed the document for consistency with the finalized Requirement Analysis.
+
+### Outcome
+The refined document more accurately reflects the actual exploration process and provides a stronger foundation for the Test Strategy and subsequent testing artifacts.
+-------------------------------------------------
