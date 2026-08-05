@@ -18,4 +18,4 @@ Requested guidance for installing Playwright, resolving Node.js compatibility is
 - Executed the sample Playwright tests successfully.
 
 ### Result
-Playwright environment verified with all sample tests passing.
+Playwright environment verified with all sample tests passing. 
