@@ -469,3 +469,13 @@ AI was instructed to generate lightweight reusable Page Objects only, without te
 Review Decision:
 Accepted after human review. Minor implementation details (such as route assumptions and locator refinements) will be validated during automation implementation rather than over-engineering the initial framework.
 ---------------
+## Prompt Iteration – UI Smoke Automation
+
+Implemented the first Playwright UI smoke automation (MTC-UI-001).
+
+The test uses the existing RegisterPage and LoginPage page objects, dynamically generates a unique user, verifies successful registration and login, references the manual test case ID, and is tagged with @Smoke.
+
+The implementation intentionally reuses existing utilities and avoids duplicated logic or hardcoded test data.
+---------------
+
+---------------
