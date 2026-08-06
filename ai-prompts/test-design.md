@@ -365,3 +365,39 @@ Accepted with a minor improvement.
 - Added an API Scenario Prioritization section explaining why only six manual API scenarios were selected.
 - Documented that non-critical endpoints (e.g., Categories, Brands) were intentionally excluded to keep the assessment focused on the checkout lifecycle and acceptance criteria.
 ---------------
+## Prompt Iteration – Manual Test Case Generation
+
+### Goal
+
+Generate the finalized manual UI and API test case CSV files based on the approved planning scenarios.
+
+### Validation
+
+Reviewed both generated CSV files against:
+
+- Finalized Manual UI Planning
+- Finalized Manual API Planning
+- Requirement Analysis
+- Application Exploration
+- Test Strategy
+- Assessment Acceptance Criteria
+
+### Review Decision
+
+Approved without structural changes.
+
+The generated CSV files:
+
+- FunctionalTestCase/UI-TestCases.csv
+- FunctionalTestCase/API-TestCases.csv
+
+were accepted after manual review because they:
+
+- contain exactly six scenarios each
+- satisfy Smoke and Regression coverage
+- include Positive, Negative and Edge scenarios
+- maintain traceability to UI AC1/UI AC2 and API AC1/API AC2
+- avoid unnecessary or redundant test cases
+
+Minor wording observations were intentionally left unchanged because they do not affect execution quality or assessment compliance.
+---------------
