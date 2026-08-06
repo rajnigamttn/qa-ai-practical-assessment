@@ -401,3 +401,59 @@ were accepted after manual review because they:
 
 Minor wording observations were intentionally left unchanged because they do not affect execution quality or assessment compliance.
 ---------------
+## Prompt Iteration – Playwright Framework Planning
+
+### Goal
+
+Design the Playwright automation framework before implementation.
+
+### Initial Prompt
+
+Based on the finalized project artifacts:
+
+requirement-analysis.md
+application-exploration.md
+test-strategy.md
+automation-opportunities.md
+FunctionalTestCase/UI-TestCases.csv
+FunctionalTestCase/API-TestCases.csv
+
+help plan the Playwright automation framework for this assessment.
+
+Do NOT generate any Playwright code yet.
+
+Instead, propose the automation framework structure.
+
+Include:
+
+Recommended folder structure under PrismStructure/
+Page Objects required
+API helper classes required
+Utility/helper classes
+Test data strategy
+Configuration files
+Smoke vs Regression organization
+Reporting approach
+Naming conventions
+Why this structure fits a small assessment project
+
+Keep the response as an implementation plan only.
+
+Do not generate any code.
+
+### Validation
+
+Reviewed the framework against:
+
+- Test Strategy
+- Automation Opportunities
+- Manual UI Test Planning
+- Manual API Test Planning
+- Assessment acceptance criteria
+
+### Refinements
+
+- Improved traceability between manual and automated tests.
+- Simplified framework architecture.
+- Added framework design decision.
+- Confirmed representative automation coverage.
