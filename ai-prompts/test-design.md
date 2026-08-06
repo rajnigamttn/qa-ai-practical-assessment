@@ -228,3 +228,140 @@ Minor refinements were made to improve traceability to the assessment acceptance
 
 The final document was accepted as the baseline Automation Opportunities artifact for the assessment repository.
 ---------------
+## Prompt Iteration – Manual UI Test Planning
+
+### Goal
+
+Design the manual UI test suite before generating the final CSV.
+
+### Initial Prompt
+
+Based on the finalized requirement-analysis.md, application-exploration.md, test-strategy.md, and automation-opportunities.md, help design the Manual UI Test Suite for this assessment.
+
+Do NOT generate the CSV yet.
+
+First propose exactly 6 Manual UI test scenarios only.
+
+These scenarios must collectively satisfy the assessment acceptance criteria while demonstrating QA thinking.
+
+Requirements:
+
+Maximum 6 scenarios.
+Include both @Smoke and @Regression.
+Include positive, negative, and edge coverage.
+Avoid redundant scenarios.
+Prioritize end-to-end Checkout Flow.
+Each scenario should include:
+Scenario ID
+Title
+Objective
+Why this scenario is included
+Suggested Tag (@Smoke/@Regression)
+Type (Positive/Negative/Edge)
+Do not produce detailed test steps yet.
+This document is only for planning the manual test suite.
+
+### Validation
+
+Reviewed against Requirement Analysis
+Reviewed against Test Strategy
+Reviewed against Automation Opportunities
+Verified total manual UI scenarios remain within assessment guidance (5–8)
+Verified coverage of UI AC1 and UI AC2
+
+### Refinements
+
+Added a Scenario Selection Justification section explaining why six representative scenarios were selected instead of exhaustive coverage.
+
+### Review Decision
+
+The proposed six manual UI scenarios were accepted because they:
+
+cover UI AC1 and UI AC2
+include @Smoke and @Regression
+include Positive, Negative and Edge coverage
+prioritize the Checkout Flow
+avoid redundant scenarios
+remain within the assessment recommendation of 5–8 manual scenarios
+---------------
+## Prompt Iteration – Manual API Test Planning
+
+### Goal
+
+Design the manual API test suite before generating the final CSV.
+
+### Initial Prompt
+
+Based on the finalized requirement-analysis.md, application-exploration.md, test-strategy.md, and automation-opportunities.md, help design the Manual API Test Suite for this assessment.
+
+Do NOT generate the CSV yet.
+
+First propose exactly 6 Manual API test scenarios only.
+
+These scenarios must collectively satisfy API AC1 and API AC2 while demonstrating QA thinking.
+
+Requirements:
+
+Maximum 6 scenarios.
+Include both @Smoke and @Regression.
+Include positive, negative, and edge coverage.
+Avoid redundant scenarios.
+Prioritize the complete API checkout lifecycle (register → login → cart → products → invoice).
+Each scenario should include:
+Scenario ID
+Title
+Objective
+Why this scenario is included
+Suggested Tag (@Smoke/@Regression)
+Type (Positive/Negative/Edge)
+Include an API AC traceability table.
+Include a short Design Rationale explaining why only these six scenarios were selected.
+Do not produce detailed request payloads, test steps, or expected results yet.
+This document is only for planning the manual API test suite.
+
+### Validation
+
+- Reviewed against Requirement Analysis
+- Reviewed against Application Exploration
+- Reviewed against Test Strategy
+- Reviewed against Automation Opportunities
+- Verified total manual API scenarios remain within assessment guidance (5–8)
+- Verified coverage of API AC1 and API AC2
+
+### Review Decision
+
+Accepted the proposed six API scenarios because they:
+
+- cover API AC1 and API AC2
+- include @Smoke and @Regression coverage
+- include Positive, Negative and Edge scenarios
+- prioritize the complete checkout API lifecycle
+- avoid redundant endpoint-level tests
+- remain within the assessment recommendation of 5–8 manual scenarios
+
+### Refinement
+
+Updated the Complete API Checkout Lifecycle scenario (MTC-API-002) to participate in both @Smoke and @Regression suites because invoice generation is part of the critical business path.
+---------------
+## Review Decision – Manual API Test Planning
+
+### Review Summary
+
+Reviewed the proposed Manual API Test Planning against:
+
+- QA Practical Assessment document
+- Assessment email
+- Requirement Analysis
+- Application Exploration
+- Test Strategy
+- Automation Opportunities
+
+### Decision
+
+Accepted with a minor improvement.
+
+### Improvement Requested
+
+- Added an API Scenario Prioritization section explaining why only six manual API scenarios were selected.
+- Documented that non-critical endpoints (e.g., Categories, Brands) were intentionally excluded to keep the assessment focused on the checkout lifecycle and acceptance criteria.
+---------------

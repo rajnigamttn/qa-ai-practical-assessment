@@ -1,0 +1,67 @@
+Test Case ID,Title,Tag,Type,Preconditions,API Endpoint(s),Request / Test Steps,Expected Result
+MTC-API-001,User Registration Login and Cart Creation,@Smoke,Positive,"1. API base URL https://api.practicesoftwaretesting.com is accessible
+2. API client or tool is available to send HTTP requests (e.g. Postman curl or Playwright API context)
+3. A unique email address and a valid password meeting API complexity rules are prepared","POST /users/register
+POST /users/login
+POST /carts","1. Send POST https://api.practicesoftwaretesting.com/users/register with JSON body containing first_name last_name unique email and valid password
+2. Verify the registration response
+3. Send POST https://api.practicesoftwaretesting.com/users/login with JSON body containing the registered email and password
+4. Extract the access_token from the login response
+5. Send POST https://api.practicesoftwaretesting.com/carts with header Authorization Bearer access_token and no request body unless required by documentation
+6. Verify the cart creation response","1. Registration returns a successful response and includes a user identifier
+2. Login returns HTTP 200 with access_token token_type Bearer and expires_in in the response body
+3. Cart creation returns a successful response with a cart id
+4. Authenticated cart request is accepted only when a valid bearer token is supplied"
+MTC-API-002,Complete API Checkout Lifecycle Products Cart and Invoice,@Regression,Positive,"1. API base URL https://api.practicesoftwaretesting.com is accessible
+2. API client or tool is available to send HTTP requests
+3. A unique email address and valid password are prepared for registration","POST /users/register
+POST /users/login
+POST /carts
+GET /products
+POST /carts/{cart_id}
+GET /carts/{cart_id}
+POST /invoices","1. Register a new user using POST /users/register with valid first_name last_name email and password
+2. Log in using POST /users/login and obtain the access_token
+3. Create a cart using POST /carts with Authorization Bearer access_token
+4. Retrieve products using GET /products?in_stock=true
+5. Select at least one in-stock product id from the response
+6. Add the product to the cart using POST /carts/{cart_id} with JSON body containing product_id and quantity
+7. Retrieve and verify the cart using GET /carts/{cart_id} with Authorization Bearer access_token
+8. Generate an invoice using POST /invoices with Authorization Bearer access_token and JSON body containing billing_street billing_city billing_state billing_country billing_postal_code payment_method cash-on-delivery cart_id and payment_details object
+9. Review the invoice response","1. Registration and login succeed and a valid bearer token is returned
+2. Cart is created and product is added successfully
+3. GET /carts/{cart_id} returns cart_items matching the added product and quantity
+4. POST /invoices returns a successful response with invoice details for the submitted cart
+5. Invoice request using payment_method cash-on-delivery is accepted when valid billing fields and cart_id are supplied"
+MTC-API-003,Login with Invalid Credentials,@Regression,Negative,"1. API base URL https://api.practicesoftwaretesting.com is accessible
+2. API client or tool is available to send HTTP requests","POST /users/login","1. Send POST https://api.practicesoftwaretesting.com/users/login with JSON body containing an invalid email and/or invalid password
+2. Review the HTTP status code and response body
+3. Attempt to use any value returned in the response as a bearer token for POST /carts if a token is present","1. API returns an authentication failure response such as HTTP 401 Unauthorized
+2. Response does not provide a valid access_token for secured endpoints
+3. Subsequent secured requests using invalid or missing credentials are rejected"
+MTC-API-004,Secured Endpoint Access Without Bearer Token,@Regression,Negative,"1. API base URL https://api.practicesoftwaretesting.com is accessible
+2. API client or tool is available to send HTTP requests","POST /carts","1. Send POST https://api.practicesoftwaretesting.com/carts without an Authorization header
+2. Review the HTTP status code and response body
+3. Optionally repeat the request with an empty or malformed Authorization header if supported by the test tool","1. API returns an unauthorized response such as HTTP 401 Unauthorized
+2. No cart id is created for the unauthenticated request
+3. Secured cart endpoint enforces bearer token authentication"
+MTC-API-005,Invoice Generation with Invalid or Incomplete Billing Details,@Regression,Negative,"1. API base URL https://api.practicesoftwaretesting.com is accessible
+2. A registered user exists and a valid bearer token is available
+3. A valid cart id exists with at least one product added","POST /users/register
+POST /users/login
+POST /carts
+POST /carts/{cart_id}
+POST /invoices","1. Register and log in to obtain a valid bearer token if not already available
+2. Create a cart using POST /carts
+3. Add at least one product to the cart using POST /carts/{cart_id}
+4. Send POST https://api.practicesoftwaretesting.com/invoices with Authorization Bearer access_token and an invalid or incomplete JSON body such as missing billing_street billing_city billing_postal_code payment_method or cart_id
+5. Review the HTTP status code and validation response","1. API rejects the invoice request with a client error response such as HTTP 422 Unprocessable Content or HTTP 400 Bad Request
+2. Response contains validation feedback indicating missing or invalid billing or invoice fields
+3. No successful invoice is created for the invalid request"
+MTC-API-006,User Registration Rejected for Password Policy Violation,@Regression,Edge,"1. API base URL https://api.practicesoftwaretesting.com is accessible
+2. API client or tool is available to send HTTP requests
+3. A unique email address is prepared for registration","POST /users/register","1. Send POST https://api.practicesoftwaretesting.com/users/register with JSON body containing first_name last_name unique email and a password that violates API policy such as a password without required complexity or a commonly breached password example Welcome01!
+2. Review the HTTP status code and response body
+3. Attempt to log in with the rejected registration credentials using POST /users/login","1. Registration is rejected with a client error response such as HTTP 422 Unprocessable Content
+2. Response body includes password validation feedback related to complexity and/or breached password rules
+3. Login with the rejected credentials does not succeed and no valid bearer token is issued"
