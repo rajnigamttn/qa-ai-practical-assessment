@@ -477,5 +477,19 @@ The test uses the existing RegisterPage and LoginPage page objects, dynamically 
 
 The implementation intentionally reuses existing utilities and avoids duplicated logic or hardcoded test data.
 ---------------
+## Prompt Iteration – UI Checkout Smoke Automation
 
+Implemented the Playwright UI smoke automation for MTC-UI-002.
+
+The test automates the end-to-end single-product checkout flow using Cash on Delivery, reuses the existing page objects, dynamically generates user data, completes the checkout journey, verifies invoice visibility in My Invoices, and is tagged with @Smoke.
+
+The implementation intentionally remains independent of other smoke tests to improve maintainability and execution reliability.
+---------------
+## Prompt Iteration – API Smoke Automation
+
+Implemented the Playwright API smoke automation for MTC-API-001.
+
+The test dynamically registers a new user, authenticates to obtain a bearer token, creates an authenticated API client, creates a cart, and verifies successful responses for each stage.
+
+The implementation reuses the existing ApiClient and AuthApi abstractions and is tagged with @Smoke.
 ---------------
