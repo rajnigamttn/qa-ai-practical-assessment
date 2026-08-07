@@ -21,11 +21,12 @@ export const PAYMENT_METHOD = {
 } as const;
 
 export const DEFAULT_BILLING = {
-  billing_street: 'Zoey Shore',
-  billing_city: 'Hesselbury',
-  billing_state: 'Florida',
-  billing_country: 'TG',
-  billing_postal_code: '1234AA',
+  billing_country: 'United States of America (the)',
+  billing_postal_code: '90210',
+  billing_house_number: '42',
+  billing_street: '',
+  billing_city: '',
+  billing_state: '',
   payment_method: PAYMENT_METHOD.CASH_ON_DELIVERY,
   payment_details: {},
 } as const;

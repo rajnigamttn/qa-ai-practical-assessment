@@ -34,17 +34,15 @@ POST /invoices","1. Register a new user using POST /users/register with valid fi
 4. POST /invoices returns a successful response with invoice details for the submitted cart
 5. Invoice request using payment_method cash-on-delivery is accepted when valid billing fields and cart_id are supplied"
 MTC-API-003,Login with Invalid Credentials,@Regression,Negative,"1. API base URL https://api.practicesoftwaretesting.com is accessible
-2. API client or tool is available to send HTTP requests","POST /users/login","1. Send POST https://api.practicesoftwaretesting.com/users/login with JSON body containing an invalid email and/or invalid password
+2. API client or tool is available to send HTTP requests",POST /users/login,"1. Send POST https://api.practicesoftwaretesting.com/users/login with JSON body containing an invalid email and/or invalid password
 2. Review the HTTP status code and response body
 3. Attempt to use any value returned in the response as a bearer token for POST /carts if a token is present","1. API returns an authentication failure response such as HTTP 401 Unauthorized
 2. Response does not provide a valid access_token for secured endpoints
 3. Subsequent secured requests using invalid or missing credentials are rejected"
-MTC-API-004,Secured Endpoint Access Without Bearer Token,@Regression,Negative,"1. API base URL https://api.practicesoftwaretesting.com is accessible
-2. API client or tool is available to send HTTP requests","POST /carts","1. Send POST https://api.practicesoftwaretesting.com/carts without an Authorization header
+MTC-API-004,Guest User Can Create Cart Without Authentication,@Regression,Regression,"1. API base URL https://api.practicesoftwaretesting.com is accessible
+2. API client or tool is available to send HTTP requests",POST /carts,"1. Send POST https://api.practicesoftwaretesting.com/carts without an Authorization header
 2. Review the HTTP status code and response body
-3. Optionally repeat the request with an empty or malformed Authorization header if supported by the test tool","1. API returns an unauthorized response such as HTTP 401 Unauthorized
-2. No cart id is created for the unauthenticated request
-3. Secured cart endpoint enforces bearer token authentication"
+3. Optionally repeat the request with an empty or malformed Authorization header if supported by the test tool",Guest user is able to create a cart successfully. API returns HTTP 201 Created and a valid cart ID.
 MTC-API-005,Invoice Generation with Invalid or Incomplete Billing Details,@Regression,Negative,"1. API base URL https://api.practicesoftwaretesting.com is accessible
 2. A registered user exists and a valid bearer token is available
 3. A valid cart id exists with at least one product added","POST /users/register
@@ -60,7 +58,7 @@ POST /invoices","1. Register and log in to obtain a valid bearer token if not al
 3. No successful invoice is created for the invalid request"
 MTC-API-006,User Registration Rejected for Password Policy Violation,@Regression,Edge,"1. API base URL https://api.practicesoftwaretesting.com is accessible
 2. API client or tool is available to send HTTP requests
-3. A unique email address is prepared for registration","POST /users/register","1. Send POST https://api.practicesoftwaretesting.com/users/register with JSON body containing first_name last_name unique email and a password that violates API policy such as a password without required complexity or a commonly breached password example Welcome01!
+3. A unique email address is prepared for registration",POST /users/register,"1. Send POST https://api.practicesoftwaretesting.com/users/register with JSON body containing first_name last_name unique email and a password that violates API policy such as a password without required complexity or a commonly breached password example Welcome01!
 2. Review the HTTP status code and response body
 3. Attempt to log in with the rejected registration credentials using POST /users/login","1. Registration is rejected with a client error response such as HTTP 422 Unprocessable Content
 2. Response body includes password validation feedback related to complexity and/or breached password rules

@@ -13,6 +13,7 @@ test.describe('UI Checkout Smoke', () => {
     { tag: '@Smoke' },
     async ({ page }) => {
       const user = generateUser();
+
       const registerPage = new RegisterPage(page);
       const loginPage = new LoginPage(page);
       const homePage = new HomePage(page);
@@ -23,8 +24,15 @@ test.describe('UI Checkout Smoke', () => {
       await registerPage.navigate();
       await registerPage.register(user);
 
+      await expect(page).toHaveURL(/\/auth\/login/);
+
       await loginPage.navigate();
       await loginPage.login(user.email, user.password);
+      await expect(page).toHaveURL(/\/account/);
+      await expect(
+        page.locator('[data-test="nav-menu"]')
+      ).toContainText(`${user.first_name} ${user.last_name}`);
+
 
       await homePage.navigate();
       await homePage.addFirstAvailableProductToCart();
@@ -37,7 +45,7 @@ test.describe('UI Checkout Smoke', () => {
 
       await invoicesPage.navigate();
       await expect(
-        page.getByRole('link').filter({ hasText: /invoice/i }).first(),
+        page.getByRole('link', { name: 'Details' }).first(),
       ).toBeVisible();
     },
   );

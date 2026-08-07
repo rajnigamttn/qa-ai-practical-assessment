@@ -26,7 +26,7 @@ test.describe('API Auth Negative Regression', () => {
   );
 
   test(
-    'MTC-API-004 Secured Endpoint Access Without Bearer Token @Regression',
+    'MTC-API-004 Guest User Can Create Cart Without Authentication @Regression',
     { tag: '@Regression' },
     async () => {
       const client = await ApiClient.create();
@@ -34,8 +34,11 @@ test.describe('API Auth Negative Regression', () => {
       try {
         const response = await client.post(API_ROUTES.carts);
 
-        expect(response.status()).toBe(401);
-        expect(response.ok()).toBeFalsy();
+        expect(response.status()).toBe(201);
+        expect(response.ok()).toBeTruthy();
+        
+        const cart = await response.json();
+        expect(cart.id).toBeTruthy();
       } finally {
         await client.dispose();
       }

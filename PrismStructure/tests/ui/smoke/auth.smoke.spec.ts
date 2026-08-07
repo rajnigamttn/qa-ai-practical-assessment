@@ -14,12 +14,13 @@ test.describe('UI Auth Smoke', () => {
 
       await registerPage.navigate();
       await registerPage.register(user);
+      await expect(page).toHaveURL(/\/auth\/login/);
 
       await loginPage.navigate();
       await loginPage.login(user.email, user.password);
 
       await expect(page).toHaveURL(/\/account/);
-      await expect(page.getByTestId('nav-menu')).toContainText(
+      await expect(page.locator('[data-test="nav-menu"]')).toContainText(
         `${user.first_name} ${user.last_name}`,
       );
     },

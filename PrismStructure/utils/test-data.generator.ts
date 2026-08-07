@@ -13,6 +13,7 @@ export interface BillingDetails {
   billing_state: string;
   billing_country: string;
   billing_postal_code: string;
+  billing_house_number: string;
   payment_method: string;
   payment_details: Record<string, unknown>;
   cart_id?: string;

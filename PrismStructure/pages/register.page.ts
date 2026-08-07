@@ -16,9 +16,21 @@ export class RegisterPage extends BasePage {
     await this.fill(this.page.getByLabel('First name'), user.first_name);
     await this.fill(this.page.getByLabel('Last name'), user.last_name);
     await this.fill(this.page.getByLabel('Date of Birth *'), '1990-01-15');
-    await this.page.getByLabel('Your country *').selectOption({ index: 1 });
+    await this.page.getByLabel('Country').selectOption({ index: 1 });
+    await this.fill(this.page.getByLabel('Postal code'), '1234AA');
+    await this.fill(this.page.getByLabel('House number'), '10');
+    await this.fill(this.page.getByLabel('Street'), 'Main Street');
+    await this.fill(this.page.getByLabel('City'), 'Amsterdam');
+    await this.fill(this.page.getByLabel('State'), 'North Holland');
+    await this.fill(this.page.getByLabel('Phone'), '9876543210');
     await this.fill(this.page.getByLabel('Email address'), user.email);
-    await this.fill(this.page.getByLabel('Password'), user.password);
-    await this.click(this.page.getByRole('button', { name: 'Register' }));
+    await this.fill(this.page.locator('[data-test="password"]'), user.password);
+    await this.click(
+      this.page.locator('[data-test="register-submit"]')
+  );
+  
+  await this.page.waitForURL(/\/auth\/login/, {
+      timeout: 15000,
+  });
   }
 }

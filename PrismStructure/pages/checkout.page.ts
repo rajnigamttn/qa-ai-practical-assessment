@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 import { UI_ROUTES, DEFAULT_BILLING } from '../utils/constants.js';
 import { BillingDetails } from '../utils/test-data.generator.js';
 import { BasePage } from './base.page.js';
@@ -15,22 +15,78 @@ export class CheckoutPage extends BasePage {
   async completeBillingDetails(
     billing: BillingDetails = DEFAULT_BILLING,
   ): Promise<void> {
-    await this.fill(this.page.getByLabel('Street'), billing.billing_street);
-    await this.fill(this.page.getByLabel('City'), billing.billing_city);
-    await this.fill(this.page.getByLabel('State'), billing.billing_state);
-    await this.fill(
-      this.page.getByLabel('Postal code'),
-      billing.billing_postal_code,
-    );
-    await this.click(this.page.getByTestId('proceed-3'));
+
+    await this.page
+  .getByTestId('country')
+  .selectOption({ label: billing.billing_country });
+
+  const postal = this.page.getByTestId('postal_code');
+
+  await postal.click();
+  await postal.clear();
+  await postal.fill(billing.billing_postal_code);
+
+  const house = this.page.getByTestId('house_number');
+
+  await house.click();
+  await house.clear();
+  await house.fill(billing.billing_house_number);
+
+  
+    // Wait until auto-fill completes
+// Wait for address lookup to complete
+await expect(this.page.getByTestId('street')).not.toHaveValue('', {
+  timeout: 15000,
+});
+
+await expect(this.page.getByTestId('city')).not.toHaveValue('', {
+  timeout: 15000,
+});
+
+await expect(this.page.getByTestId('state')).not.toHaveValue('', {
+  timeout: 15000,
+});
+await this.page.waitForTimeout(1000);
+    const proceed = this.page.getByTestId('proceed-3');
+  
+    await expect(proceed).toBeEnabled({
+      timeout: 15000,
+    });
+    await proceed.click();
   }
 
   async selectCashOnDelivery(): Promise<void> {
-    await this.click(this.page.getByText('Cash on Delivery', { exact: true }));
-  }
+    await this.page
+    .getByTestId('payment-method')
+    .selectOption({
+      value: 'cash-on-delivery',
+    });
+    }
 
-  async confirmOrder(): Promise<void> {
-    await this.click(this.page.getByRole('button', { name: 'Confirm' }));
-    await this.click(this.page.getByRole('button', { name: 'Confirm' }));
-  }
+    async confirmOrder(): Promise<void> {
+      const confirm = this.page.getByTestId('finish');
+    
+      // First confirm
+      await expect(confirm).toBeEnabled();
+      await confirm.click();
+    
+      // Wait until payment is actually processed
+      await expect(
+        this.page.getByTestId('payment-success-message'),
+      ).toBeVisible();
+    
+      // Second confirm creates invoice
+      await expect(confirm).toBeEnabled();
+      await confirm.click();
+    
+      // Wait until order confirmation appears
+      await expect(
+        this.page.locator('#order-confirmation'),
+      ).toContainText(
+        'Thanks for your order!',
+        {
+          timeout: 15000,
+        },
+      );
+    }
 }

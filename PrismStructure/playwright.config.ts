@@ -15,6 +15,7 @@ export default defineConfig({
     baseURL: uiBaseUrl,
     screenshot: 'only-on-failure',
     trace: 'on-first-retry',
+    testIdAttribute: 'data-test',
   },
   projects: [
     {

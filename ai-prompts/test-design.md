@@ -493,3 +493,29 @@ The test dynamically registers a new user, authenticates to obtain a bearer toke
 
 The implementation reuses the existing ApiClient and AuthApi abstractions and is tagged with @Smoke.
 ---------------
+## Prompt Iteration – API Regression Automation
+---------------
+## Prompt Iteration – UI Checkout Automation Debugging
+
+### Goal
+
+Stabilize the end-to-end checkout automation covering address autofill, payment selection, invoice generation, and invoice verification.
+
+### Validation
+
+Performed multiple execution cycles using Playwright.
+
+Observed intermittent failures caused by the public PracticeSoftwareTesting environment, including inconsistent address auto-fill behavior, timing differences during invoice generation, and session-related state.
+
+### Refinements
+
+- Updated locators to use data-test attributes.
+- Improved synchronization around address auto-fill.
+- Replaced payment text selection with dropdown selection.
+- Implemented the required double-confirm flow for invoice generation.
+- Refined invoice verification after order completion.
+
+### Review Decision
+
+The automation was manually reviewed after multiple executions. Remaining intermittent failures were identified as environmental flakiness rather than framework defects. The implementation was accepted with documented assumptions and limitations.
+---------------
